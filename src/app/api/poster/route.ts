@@ -145,7 +145,7 @@ export async function POST(req: Request) {
           "- keyBeats (array of 3-6 strings)",
           "- visualStyle: { era, lighting, colorPalette, camera, composition, typography }",
           "- posterPrompt (a single, detailed image prompt for a dramatic, high-quality theatrical movie poster; include title + tagline placement guidance, realistic details, cinematic lighting, no logos/watermarks)",
-          "- trailerPrompt (a 4-second cinematic teaser shot: one dramatic camera move, no on-screen text, no logos, no real actor likeness; describe motion, lighting, and the key beat from the review)",
+          "- trailerPrompt (a 2-second cinematic teaser shot: one dramatic camera move, no on-screen text, no logos, no real actor likeness; describe motion, lighting, and the key beat from the review)",
           "- negativePrompt (what to avoid: low quality, text gibberish, extra limbs, watermarks, etc.)",
         ].join("\n"),
       },

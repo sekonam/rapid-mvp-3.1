@@ -480,7 +480,7 @@ export default function Home() {
 
                   <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-white/10 dark:bg-black/20">
                     <div className="flex items-center justify-between gap-3">
-                      <h3 className="text-sm font-semibold tracking-tight">Teaser trailer (4s)</h3>
+                      <h3 className="text-sm font-semibold tracking-tight">Teaser trailer (2s)</h3>
                       {video?.video?.dataUrl ? (
                         <button
                           onClick={downloadVideo}

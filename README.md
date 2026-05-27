@@ -5,7 +5,7 @@ Paste a mundane/terrible customer review and get back a dramatic, cinematic, hig
 This MVP uses a **3-step AI flow**:
 - **Interpretation step**: review → a structured “movie brief” (title, tagline, logline, style, trailer shot)
 - **Poster step**: brief → a 2:3 **poster image** (PNG)
-- **Trailer step**: poster + brief → a 4s **teaser video** (MP4) via Sora, guided by the poster
+- **Trailer step**: poster + brief → a 2s **teaser video** (MP4) via Sora, guided by the poster
 
 ### Tech
 - Next.js (App Router) + Tailwind

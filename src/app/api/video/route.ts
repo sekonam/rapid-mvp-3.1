@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getOpenAIClient } from "@/lib/openai";
+import { SORA_GENERATION_SECONDS } from "@/lib/constants";
+import { posterDataUrlToReferenceFile } from "@/lib/poster-file";
 import { downloadVideoBase64, waitForVideo } from "@/lib/video";
 
 export const runtime = "nodejs";
@@ -36,6 +38,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing trailerPrompt or posterDataUrl" }, { status: 400 });
   }
 
+  let inputReference;
+  try {
+    inputReference = await posterDataUrlToReferenceFile(posterDataUrl);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Invalid poster image";
+    return NextResponse.json({ error: msg }, { status: 400 });
+  }
+
   const job = await client.videos.create({
     model: "sora-2",
     prompt: [
@@ -43,9 +53,9 @@ export async function POST(req: Request) {
       "",
       "Cinematic movie teaser. Smooth camera motion. Dramatic lighting. No on-screen text. No logos.",
     ].join("\n"),
-    seconds: "4",
+    seconds: SORA_GENERATION_SECONDS,
     size: "720x1280",
-    input_reference: { image_url: posterDataUrl },
+    input_reference: inputReference,
   });
 
   return NextResponse.json({
