@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Bad Review → Movie Poster (Rapid MVP)
 
-## Getting Started
+Paste a mundane/terrible customer review and get back a dramatic, cinematic, high-quality **movie poster**.
 
-First, run the development server:
+This MVP uses a **3-step AI flow**:
+- **Interpretation step**: review → a structured “movie brief” (title, tagline, logline, style, trailer shot)
+- **Poster step**: brief → a 2:3 **poster image** (PNG)
+- **Trailer step**: poster + brief → a 4s **teaser video** (MP4) via Sora, guided by the poster
+
+### Tech
+- Next.js (App Router) + Tailwind
+- OpenAI (text + image)
+
+## Getting started (local)
+
+### 1) Set one environment variable
+
+Create `.env.local`:
+
+```bash
+OPENAI_API_KEY="YOUR_KEY_HERE"
+```
+
+### 2) Install + run
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## Deploy to Vercel
+
+- Push this repo to GitHub.
+- Import it in Vercel.
+- Add `OPENAI_API_KEY` in **Project Settings → Environment Variables**.
+- Deploy.
+
+## Notes
+
+- `POST /api/poster` — brief + poster image
+- `POST /api/video` — starts a Sora job (uses poster as reference)
+- `GET /api/video?id=...` — poll status; returns MP4 when complete
+- Sora access must be enabled on your OpenAI project (video generation can take 1–3 minutes).
+
+## Safety / constraints
+
+- The prompt asks the image model to avoid real actor likeness, logos, and watermarks.
+- If generation fails, the API returns an error (and the UI shows a clean error state).
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
